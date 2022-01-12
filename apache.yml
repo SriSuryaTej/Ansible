@@ -3,9 +3,9 @@
   hosts: all
   become: yes
   tasks: 
-    - name: Install apache 2
+    - name: Install apache2
       apt:
-        name: apache 2
+        name: apache2
         update_cache: yes
         state: present
     - name: Install php modules
