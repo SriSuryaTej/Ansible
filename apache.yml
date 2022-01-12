@@ -8,3 +8,17 @@
         name: apache 2
         update_cache: yes
         state: present
+    - name: Install php modules
+      apt:
+        name: 
+            - php
+            - libapache2-mod-php
+            - php-mysql
+        state: present
+    - name: Create info.php
+      copy: 
+        dest: /var/www/html/info.php
+        content: |
+         <? php
+         phpinfo();
+         >?
