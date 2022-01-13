@@ -8,3 +8,7 @@
         name: nginx
         update_cache: yes
         state: present
+    - name: start nginx
+      service: 
+        name: nginx
+        state: started
