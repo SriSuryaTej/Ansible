@@ -1,4 +1,6 @@
-- hosts: all
+---
+- name: Install nginx
+  hosts: all
 
   become: yes
 
