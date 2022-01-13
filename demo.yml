@@ -1,7 +1,7 @@
 ---
 - name: Install apache and php
   hosts: all
-  become: yes
+  sudo: yes
   tasks: 
     - name: Install apache2
       apt:
