@@ -24,7 +24,7 @@
          ?>
       notify: 
         - Restart apache2
- handler: 
+  handlers: 
       - name: Restart service
         service:
          name: apache2
