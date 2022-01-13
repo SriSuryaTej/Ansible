@@ -22,7 +22,7 @@
          <?php
          phpinfo();
          ?>
-      notify: 
+        notify: 
          - Restart apache2
       handler: 
       - name: Restart service
