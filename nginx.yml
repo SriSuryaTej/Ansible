@@ -6,7 +6,6 @@
     - name: Install nginx
       apt:
         name: nginx
-        update_cache: yes
         state: present
     - name: start nginx
       service: 
