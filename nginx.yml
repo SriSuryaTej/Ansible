@@ -3,12 +3,13 @@
   hosts: all
   become: yes
   tasks: 
+    - name: Install nginx
+      apt:
+        name: nginx
+        state: latest
     - name: start nginx
       service: 
         name: nginx
         state: started
-    - name: Install nginx
-      apt:
-        name: nginx
-        state: present
+    
     
