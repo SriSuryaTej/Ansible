@@ -1,0 +1,2 @@
+nopcommerce_def_locat: /etc/nginx/sites-available/default
+nopCommerce_servicefile: nopCommerce450.service

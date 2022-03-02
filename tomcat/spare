@@ -1,0 +1,7 @@
+tomcat_user_config_location: /opt/tomcat/latest/conf/tomcat_users.xml
+
+
+tomcat_manager_config_location: /opt/tomcat/latest/webapps/manager/META-INF/context.xml
+
+
+tomcat_host_manager_config_location: /opt/tomcat/latest/webapps/host-manager/META-INF/context.xml

@@ -1,0 +1,79 @@
+---
+- name: intall nop commerce
+  become: yes
+  hosts: all
+  tasks:
+    - name: download the debian file
+      ansible.builtin.get_url:
+        url: https://packages.microsoft.com/config/ubuntu/20.04/packages-microsoft-prod.deb
+        dest: /tmp/packages-microsoft-prod.deb
+    - name: install the debian package
+      apt:
+        deb: /tmp/packages-microsoft-prod.deb
+    - name: install .net core runtimes
+      apt:
+        name: "{{ item }}"
+        update_cache: yes
+        state: present
+      with_items:
+        - apt-transport-https
+        - aspnetcore-runtime-6.0
+    - name: install nginx
+      apt:
+        name: nginx
+        state: latest
+    - name: start nginx
+      service:
+        name: nginx
+        state: started
+    - name: create default file
+      copy:
+        src: default
+        dest: /etc/nginx/sites-available/default
+    - name: creating path /var/www/nopcommerce450
+      file:
+        path: /var/www/nopcommerce450
+        state: directory
+    - name: download nopcommerce
+      get_url:
+        url: https://github.com/nopSolutions/nopCommerce/releases/download/release-4.50.1/nopCommerce_4.50.1_NoSource_linux_x64.zip
+        dest: /var/www/nopcommerce450/nopCommerce_4.50.1_NoSource_linux_x64.zip
+
+    - name: unzip the nopcommerce
+      unarchive:
+        remote_src: yes
+        src: /var/www/nopcommerce450/nopCommerce_4.50.1_NoSource_linux_x64.zip
+        dest: /var/www/nopcommerce450
+
+    - name: creating bin and log folders
+      file:
+        path: "{{ item }} "
+        state: directory
+      with_items:
+         - /var/www/nopcommerce450/bin
+         - /var/www/nopcommerce450/logs
+    - name: change group and owner permissions
+      file:
+        path: /var/www
+        state: directory
+        recurse: yes
+        owner: www-data
+        group: www-data
+        mode: '0755'
+    - name: nopcommerece service file
+      copy:
+        src: ./nop/nopCommerce450.service
+        dest: /etc/systemd/system/nopCommerce450.service
+        remote_src: yes
+    - name: ensure nopCommerce is started
+      systemd:
+        name: nopCommerce450.service
+        daemon_reload: yes
+        state: started
+      notify:
+        - reload nginx
+  handlers:
+    - name: reload nginx
+      service:
+        name: nginx
+        state: restarted
