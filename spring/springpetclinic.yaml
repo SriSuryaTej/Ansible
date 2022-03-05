@@ -3,7 +3,7 @@
   hosts: all
   become: yes
   tasks:
-    - name: installing java-{{ java_version }}
+    - name: installing java-"{{ java_version }}"
       package:
         name: "{{ java_package}}"
         update_cache: yes
