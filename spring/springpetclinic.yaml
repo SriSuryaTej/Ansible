@@ -3,31 +3,39 @@
   hosts: all
   become: yes
   tasks:
-    - name: installing java-"{{ java_version }}"
+    - name: pet clinic pettam bavundhi
       package:
         name: "{{ java_package}}"
         update_cache: yes
         state: present
-    - name: Getting jar file from (naku matram em telusu bayya)
+    - name: ushhh.. antha bavundhi 
       get_url:
         url: https://referenceapplicationskhaja.s3.us-west-2.amazonaws.com/spring-petclinic-2.4.2.jar
         dest: /usr/share/spc/spring-petclinic.jar
-    - name: Creating kotha panodu
+    - name: araiii e chetha antha entra babu
+      file:
+        path: /usr/share/spc/
+        state: present
+    - name: clean cheyaadniki oka panodini pettali 
       user:
         name: spc
         password: 'spc'
-    - name: changing.. (edhi itha nekuenduku agu ala)
+    - name: pani vadiki em cheyalo cheppali
       file:
         path: /usr/share/spc/spring-petclinic.jar
         owner: spc
         group: spc
         mode: '0500'
-    - name: app. ki service connection edham
+    - name: mari vadiki chata cheepurukatta evali kadha
       copy:
         src: spc.service
         dest: /etc/systemd/system/spc.service
-    - name: poyi chudu inka pani ayepoyindhi...
+    - name: poyi pani chesukora ani cheppu vadiki
+      service:
+        name: spc.service
+        state: started          
+    - name: neat ga pani chesada ledha ani chudali
       debug:
-        msg: nijam ra ayyaa poo.. 8080 port check chey
+        msg: pora araiii poo.. 8080 port check chey kanipistadu 
 
 
