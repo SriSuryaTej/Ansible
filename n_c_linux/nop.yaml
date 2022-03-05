@@ -66,9 +66,8 @@
         dest: /etc/systemd/system/nopCommerce450.service
         remote_src: yes
     - name: ensure nopCommerce is started
-      systemd:
+      service:
         name: nopCommerce450.service
-        daemon_reload: yes
         state: started
       notify:
         - reload nginx
