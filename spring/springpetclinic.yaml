@@ -1,0 +1,33 @@
+---
+- name: Get ready for pet clinic
+  hosts: all
+  become: yes
+  tasks:
+    - name: installing java-{{ java_version }}
+      package:
+        name: "{{ java_package}}"
+        update_cache: yes
+        state: present
+    - name: Getting jar file from (naku matram em telusu bayya)
+      get_url:
+        url: https://referenceapplicationskhaja.s3.us-west-2.amazonaws.com/spring-petclinic-2.4.2.jar
+        dest: /usr/share/spc/spring-petclinic.jar
+    - name: Creating kotha panodu
+      user:
+        name: spc
+        password: 'spc'
+    - name: changing.. (edhi itha nekuenduku agu ala)
+      file:
+        path: /usr/share/spc/spring-petclinic.jar
+        owner: spc
+        group: spc
+        mode: '0500'
+    - name: app. ki service connection edham
+      copy:
+        src: spc.service
+        dest: /etc/systemd/system/spc.service
+    - name: poyi chudu inka pani ayepoyindhi...
+      debug:
+        msg: nijam ra ayyaa poo.. 8080 port check chey
+
+
