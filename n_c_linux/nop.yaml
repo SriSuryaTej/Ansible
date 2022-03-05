@@ -32,7 +32,7 @@
         dest: /etc/nginx/sites-available/default
     - name: creating path /var/www/nopcommerce450
       file:
-        path: /var/www/nopcommerce450
+        path: /var/www/nopcommerce450/
         state: directory
     - name: download nopcommerce
       get_url:
@@ -43,7 +43,7 @@
       unarchive:
         remote_src: yes
         src: /var/www/nopcommerce450/nopCommerce_4.50.1_NoSource_linux_x64.zip
-        dest: /var/www/nopcommerce450
+        dest: /var/www/nopcommerce450/
 
     - name: creating bin and log folders
       file:
